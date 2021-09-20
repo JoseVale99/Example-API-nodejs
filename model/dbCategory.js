@@ -25,7 +25,6 @@ async function getCategoryID(id) {
                     if (err) reject(err);
                     else
                         resolve(resultados);
-                    console.log(resultados);
                 });
         });
 
@@ -66,10 +65,26 @@ async function updateCategory(id, cat_name, cat_obs){
         console.log(error);
     }
 }
+async function deleteCategory(id) {
+    try {
+        return new Promise((resolve, reject) => {
+            conexion.query(`DELETE FROM categories
+            WHERE id = ?`,
+                [id],
+                (err) => {
+                    if (err) reject(err);
+                    else resolve();
+                });
+        });
+    } catch (error) {
+        console.log(error);
+    }  
+}
 
 module.exports = {
     getCategory: getCategory,
     getCategoryID: getCategoryID,
     createCategory: createCategory,
-    updateCategory: updateCategory
+    updateCategory: updateCategory,
+    deleteCategory: deleteCategory
 };
