@@ -30,11 +30,7 @@ router.route('/category').get((request, response)=>{
 //  Route GET: return all data of categories for id 
 router.route('/category/:id').get((request, response)=>{
     categories.getCategoryID(request.params.id).then(result => {
-        if(result.length==0) {
-            response.json({'message':'error'});
-        }
         response.json(result);
-
     });
 
 });
@@ -63,6 +59,15 @@ router.route('/update/:id').put((request, response)=>{
                 response.json(error);   
                }
 
+});
+
+//  Route DELETE: delete category
+router.route('/delete/:id').delete((request, response) =>{
+    const id = request.params.id;
+   
+    categories.deleteCategory(id).then(result => {
+        response.json({'message': 'data delete success!'});
+    });
 });
 
 var port = process.env.PORT || 3000;
