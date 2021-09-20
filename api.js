@@ -19,17 +19,22 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/api',router);
 
+
+// Route GET: return all data of categories.
 router.route('/category').get((request, response)=>{
     categories.getCategory().then(result => {
         response.json(result);
     })
 } );
+
+//  Route GET: return all data of categories for id 
 router.route('/category/:id').get((request, response)=>{
     categories.getCategoryID(request.params.id).then(result => {
         response.json(result);
     })
 } );
 
+//  Route POST: create new category
 router.route('/insert').post((request, response)=>{
     const cat_name = request.body.cat_name;
     const cat_obs = request.body.cat_obs;
