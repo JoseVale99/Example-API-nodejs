@@ -49,10 +49,27 @@ async function createCategory(cat_name, cat_obs) {
         console.log(error);
     }
 }
-
+async function updateCategory(id, cat_name, cat_obs){
+    try {
+        return new Promise((resolve, reject) => {
+            conexion.query(`UPDATE categories 
+            set cat_name = ?,
+            cat_obs = ?
+            where id = ?`,
+                [cat_name, cat_obs, id],
+                (err) => {
+                    if (err) reject(err);
+                    else resolve();
+                });
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 module.exports = {
     getCategory: getCategory,
     getCategoryID: getCategoryID,
-    createCategory: createCategory
+    createCategory: createCategory,
+    updateCategory: updateCategory
 };
