@@ -30,6 +30,15 @@ router.route('/category/:id').get((request, response)=>{
     })
 } );
 
+router.route('/insert').post((request, response)=>{
+    const cat_name = request.body.cat_name;
+    const cat_obs = request.body.cat_obs;
+    categories.createCategory(cat_name, cat_obs).then(result => {
+        response.json({'message': 'data create success!'});
+    });
+});
+
+
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Server'+port+' listening on')
