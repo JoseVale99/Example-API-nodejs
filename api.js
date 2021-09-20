@@ -30,9 +30,14 @@ router.route('/category').get((request, response)=>{
 //  Route GET: return all data of categories for id 
 router.route('/category/:id').get((request, response)=>{
     categories.getCategoryID(request.params.id).then(result => {
+        if(result.length==0) {
+            response.json({'message':'error'});
+        }
         response.json(result);
+
     });
-} );
+
+});
 
 //  Route POST: create new category
 router.route('/insert').post((request, response)=>{
@@ -47,11 +52,17 @@ router.route('/update/:id').put((request, response)=>{
     const id = request.params.id;
     const cat_name = request.body.cat_name;
     const cat_obs = request.body.cat_obs;
-    categories.updateCategory(id,cat_name, cat_obs).then( result => {
+   
 
-        response.json({'message': 'data update success!'});  
-    });
-    
+               try {
+                categories.updateCategory(id,cat_name, cat_obs).then( result => {
+       
+                   response.json({'message': 'data update success!'});  
+               });
+               } catch (error) {
+                response.json(error);   
+               }
+
 });
 
 var port = process.env.PORT || 3000;
