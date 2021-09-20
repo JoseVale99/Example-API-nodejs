@@ -65,6 +65,8 @@ async function updateCategory(id, cat_name, cat_obs){
         console.log(error);
     }
 }
+
+//  Route DELETE: delete category from category table
 async function deleteCategory(id) {
     try {
         return new Promise((resolve, reject) => {
